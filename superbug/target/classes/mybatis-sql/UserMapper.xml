@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.superbug.jvm.mapper.UserMapper" >
+<!-- userResult Map-->
+<resultMap id="BaseResultMap" type="com.superbug.jvm.po.UserBean" >
+	<result column="id" property="id"/>
+	<result column="name" property="name"/>
+	<result column="sex" property="sex"/>
+	<result column="phone" property="phone"/>
+	<result column="user_name" property="userName"/>
+	<result column="pass_word" property="passWord"/>
+	<result column="id_card" property="idCard"/>
+	<result column="address" property="address"/>
+	<result column="del" property="del"/>
+	<result column="create_at" property="createAt"/>
+	<result column="update_at" property="updateAt"/>
+</resultMap>
+
+<!--  table all fields -->
+<sql id="Base_Column_List" >
+	 id,name,sex,phone,user_name,pass_word,id_card,address,del,create_at,update_at
+</sql>
+
+
+<!-- 查询条件 -->
+<sql id="Where_Clause">
+where del = 0
+<trim  suffixOverrides="," >
+	<if test="id != null" >
+	    and id =  #{id}
+	</if>
+	 	<if test="name != null and name != ''" >
+	    and name =  #{name}
+	</if>
+	<if test="sex != null" >
+	    and sex =  #{sex}
+	</if>
+	 	<if test="phone != null and phone != ''" >
+	    and phone =  #{phone}
+	</if>
+	 	<if test="userName != null and userName != ''" >
+	    and user_name =  #{userName}
+	</if>
+	 	<if test="passWord != null and passWord != ''" >
+	    and pass_word =  #{passWord}
+	</if>
+	 	<if test="idCard != null and idCard != ''" >
+	    and id_card =  #{idCard}
+	</if>
+	 	<if test="address != null and address != ''" >
+	    and address =  #{address}
+	</if>
+	<if test="del != null" >
+	    and del =  #{del}
+	</if>
+	<if test="createAt != null" >
+	    and create_at =  #{createAt}
+	</if>
+	<if test="updateAt != null" >
+	    and update_at =  #{updateAt}
+	</if>
+</trim>
+</sql>
+
+
+<!-- 插入记录 -->
+<insert id="insert" parameterType="com.superbug.jvm.po.UserBean" >
+	<selectKey resultType="int" keyProperty="id" order="AFTER">
+		SELECT
+		LAST_INSERT_ID()
+	</selectKey>
+  insert into user	<trim prefix="(" suffix=")"  suffixOverrides="," >
+	<if test="id != null  ">
+		`id`,
+	</if>
+	<if test="name != null  and name != '' ">
+		`name`,
+	</if>
+	<if test="sex != null  ">
+		`sex`,
+	</if>
+	<if test="phone != null  and phone != '' ">
+		`phone`,
+	</if>
+	<if test="userName != null  and userName != '' ">
+		`user_name`,
+	</if>
+	<if test="passWord != null  and passWord != '' ">
+		`pass_word`,
+	</if>
+	<if test="idCard != null  and idCard != '' ">
+		`id_card`,
+	</if>
+	<if test="address != null  and address != '' ">
+		`address`,
+	</if>
+	<if test="del != null  ">
+		`del`,
+	</if>
+	<if test="createAt != null  ">
+		`create_at`,
+	</if>
+	<if test="updateAt != null  ">
+		`update_at`,
+	</if>
+	</trim>values	<trim prefix="(" suffix=")"  suffixOverrides="," >
+	<if test="id != null  ">
+		#{id},
+	</if>
+	<if test="name != null  and name != '' ">
+		#{name},
+	</if>
+	<if test="sex != null  ">
+		#{sex},
+	</if>
+	<if test="phone != null  and phone != '' ">
+		#{phone},
+	</if>
+	<if test="userName != null  and userName != '' ">
+		#{userName},
+	</if>
+	<if test="passWord != null  and passWord != '' ">
+		#{passWord},
+	</if>
+	<if test="idCard != null  and idCard != '' ">
+		#{idCard},
+	</if>
+	<if test="address != null  and address != '' ">
+		#{address},
+	</if>
+	<if test="del != null  ">
+		#{del},
+	</if>
+	<if test="createAt != null  ">
+		#{createAt},
+	</if>
+	<if test="updateAt != null  ">
+		#{updateAt},
+	</if>
+	</trim>
+</insert>
+
+<!-- 根据id，修改记录-->
+ <update id="update" parameterType="com.superbug.jvm.po.UserBean" >
+  update user set name=#{name},sex=#{sex},phone=#{phone},user_name=#{userName},pass_word=#{passWord},id_card=#{idCard},address=#{address},del=#{del},create_at=#{createAt},update_at=#{updateAt} where id=#{id}
+ </update>
+
+ <!--  -->
+<update id="updateBySelective" parameterType="com.superbug.jvm.po.UserBean" >
+	update user set 
+	<trim  suffixOverrides="," >
+	<if test="name != null  and name != '' ">
+		name=#{name},
+	</if>
+	<if test="sex != null  ">
+		sex=#{sex},
+	</if>
+	<if test="phone != null  and phone != '' ">
+		phone=#{phone},
+	</if>
+	<if test="userName != null  and userName != '' ">
+		user_name=#{userName},
+	</if>
+	<if test="passWord != null  and passWord != '' ">
+		pass_word=#{passWord},
+	</if>
+	<if test="idCard != null  and idCard != '' ">
+		id_card=#{idCard},
+	</if>
+	<if test="address != null  and address != '' ">
+		address=#{address},
+	</if>
+	<if test="del != null  ">
+		del=#{del},
+	</if>
+	<if test="createAt != null  ">
+		create_at=#{createAt},
+	</if>
+	<if test="updateAt != null  ">
+		update_at=#{updateAt},
+	</if>
+	</trim> where id=#{id}
+</update>
+
+<!-- 逻辑删除，将deleted 改成 1 -->
+<update id="delete" parameterType="com.superbug.jvm.po.UserBean">
+	update 	user set deleted_at = now() where id = #{id}
+</update>
+
+<!-- user 列表总数-->
+<select id="getList" resultMap="BaseResultMap"  parameterType="com.superbug.jvm.po.UserBean">
+	select
+    <include refid="Base_Column_List"/>
+    from user
+    <include refid="Where_Clause"/>
+    <if test="sortField != null and sortField != ''" >
+      order by ${sortField} ${sortBy}
+    </if>
+</select>
+
+<!-- 主键获取 user  -->
+<select id="queryOneById" resultMap="BaseResultMap"  parameterType="int">
+	select
+    <include refid="Base_Column_List"/>
+    from user
+    where id=#{id}
+</select>
+<select id="getUserList" resultMap="BaseResultMap" parameterType="map">
+	select
+	<include refid="Base_Column_List"/>
+	from user
+	where
+	del = 0
+	<if test="id != null">
+		and id = #{id}
+	</if>
+	<if test="startIndex != null and offSet != null">
+		LIMIT ${startIndex},${offSet}
+	</if>
+</select>
+
+</mapper>
